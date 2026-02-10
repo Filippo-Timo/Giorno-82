@@ -71,7 +71,7 @@ public class AuthorService {
 
     public void findByIdAdDeleteAuthor(Long authorId) {
         for (Author author : this.authorDB) {
-            this.authorDB.removeIf(a -> a.getId() == author.getId());
+            this.authorDB.removeIf(a -> a.getId() == authorId);
         }
     }
 

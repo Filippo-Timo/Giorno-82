@@ -71,7 +71,7 @@ public class BlogPostService {
 
     public void findByIdAdDeleteBlogPost(Long blogPostId) {
         for (BlogPost blogPost : this.blogPostsDB) {
-            this.blogPostsDB.removeIf(b -> b.getId() == blogPost.getId());
+            this.blogPostsDB.removeIf(b -> b.getId() == blogPostId);
         }
     }
 

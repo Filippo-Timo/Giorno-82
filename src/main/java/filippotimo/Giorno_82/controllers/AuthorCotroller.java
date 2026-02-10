@@ -43,7 +43,7 @@ public class AuthorCotroller {
     public Author findAuthorById(@PathVariable Long authorId) {
         return this.authorService.findAuthorById(authorId);
     }
-
+    
     // 3. POST /authors -> Crea un nuovo autore (new Author)
 
     @PostMapping
