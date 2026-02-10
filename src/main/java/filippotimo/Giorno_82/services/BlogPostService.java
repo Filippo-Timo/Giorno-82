@@ -13,13 +13,13 @@ public class BlogPostService {
 
     List<BlogPost> blogPostsDB = new ArrayList<>();
 
-    // 1. GET -> Torna una lista di BlogPost
+    // 1. GET -> Torna una lista di Blog Post
 
     public List<BlogPost> findAllBlogPosts() {
         return blogPostsDB;
     }
 
-    // 2. GET -> Torna un singolo BlogPost specifico
+    // 2. GET -> Torna un singolo Blog Post specifico
 
     public BlogPost findBlogPostById(Long blogPostId) {
         BlogPost found = null;
@@ -30,7 +30,7 @@ public class BlogPostService {
         return found;
     }
 
-    // 3. POST -> Crea un BlogPost
+    // 3. POST -> Crea un Blog Post
 
     public BlogPost saveBlogPost(NewBlogPostPayload blogPostPayload) {
         BlogPost newBlogPost = new BlogPost(blogPostPayload.getCategoria(), blogPostPayload.getTitolo(), blogPostPayload.getContenuto(), blogPostPayload.getTempoDiLettura());
@@ -39,4 +39,41 @@ public class BlogPostService {
         return newBlogPost;
     }
 
+    // 4. PUT -> Modifica lo specifico Blog post
+
+    public BlogPost findByIdAndUpdateBlogPost(Long blogPostId, NewBlogPostPayload blogPostPayload) {
+        BlogPost found = null;
+        for (BlogPost blogPost : this.blogPostsDB) {
+            if (blogPost.getId() == blogPostId) {
+                found = blogPost;
+                found.setCategoria(blogPostPayload.getCategoria());
+                found.setTitolo(blogPostPayload.getTitolo());
+                found.setContenuto(blogPostPayload.getContenuto());
+                found.setTempoDiLettura(blogPostPayload.getTempoDiLettura());
+            }
+        }
+        if (found == null) throw new NotFoundException(blogPostId);
+        return found;
+    }
+
+    // 5. DELETE -> Cancella lo specifico Blog post
+
+    public void findByIdAdDeleteBlogPost(Long blogPostId) {
+        BlogPost found = null;
+        for (BlogPost blogPost : this.blogPostsDB) {
+            if (blogPost.getId() == blogPostId) found = blogPost;
+        }
+        if (found == null) throw new NotFoundException(blogPostId);
+        this.blogPostsDB.remove(found);
+    }
+
+    /*
+
+    public void findByIdAdDeleteBlogPost(Long blogPostId) {
+        for (BlogPost blogPost : this.blogPostsDB) {
+            this.blogPostsDB.removeIf(b -> b.getId() == blogPost.getId());
+        }
+    }
+
+    */
 }
